@@ -1,0 +1,51 @@
+import java.util.Scanner;
+import java.util.Random;
+
+// David Rose Jr
+//9/7/25
+// Purpose: Create a guessing game that allows the user to play 
+// and try to win by guessing the right number
+
+public class GuessingGame{
+    public static void main(String[] args){
+        Scanner keyb = new Scanner(System.in);
+        Random rnd = new Random();
+        
+        //Initalize variables
+        int attempts = 5; // max amount of chances 
+        int guess = 0;
+        
+        //Create random numbers
+        int theAnswer = rnd.nextInt(10) + 1;
+        
+        // Welcom the user to the game and its rules
+        System.out.println("Welcome to the Number Guessing Game!");
+        System.out.println("You have 5 attempts to get the answer correct");
+        
+        // Allow the user to keep guessing until they run out of tries
+        // Check if the user guess is too high or too low
+        
+        while(attempts > 0){
+            System.out.println("Guess a number between (1 - 10): ");
+            guess = keyb.nextInt();
+            
+            if(guess > theAnswer){
+                System.out.println("Too high, try again");
+            }
+            
+            else if(guess < theAnswer){
+                System.out.println("Too low, try again");
+            }
+            
+            else{
+                System.out.println("Congratulations! You've guessed the correct number.");
+            }
+            attempts--; // lower the amount of attempts
+        }
+        // After attempts are done print that the user lost
+        // and print the correct answer
+        System.out.println("You have reached the max amount of attempts and lost the game " +
+        "the correct answer was " + theAnswer + ".");
+            
+        }
+    }
