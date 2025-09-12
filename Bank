@@ -1,0 +1,86 @@
+
+import java.util.Scanner;
+
+
+class Bank{
+    // Properties
+    private double amount;
+    private double[] listInteractions;
+    private int count;
+
+
+    // Constructor for maxTransactions
+    public Bank(int maxTransactions){
+        amount = 0.0;
+        listInteractions = new double[maxTransactions];
+        count = 0;
+    }
+    
+    // default constructor
+    public Bank(){
+        this(100); 
+    }
+
+    //Mutator
+
+    public void setAmount(double amountX){
+        amount = amountX;
+    }
+
+    //Accessor
+    public double getAmount(){
+        return amount;
+    }
+
+
+    // deposit() - adds funds and records history
+     public void deposit(double funds) {
+        if (funds > 0) {
+            amount += funds;
+            listInteractions[count++] = funds;
+        } else {
+            System.out.println("Your deposit must be positive!!");
+        }
+    }
+    
+    // withdrawal() - removes the funds and records the history
+    public void withdrawal(double funds){
+        if(funds > 0 && funds <= amount) {
+            amount -= funds;
+            listInteractions[count++] = -funds;
+        }else{
+            System.out.println("Your withdrawl amount was invalid!!");
+        }
+    }
+
+
+    //listInteractions() - prints the array of transactions
+    public void listInteractions() {
+        
+        System.out.println("Record of transactions: ");
+        for (int i = 0; i < count; i++) {
+            System.out.println(listInteractions[i]);
+        }
+    }
+
+        // getBalance() - return the balance
+        public double getBalance(){
+            return amount;
+        }
+
+    }
+    
+public class TestBank{
+    public static void main(String[] args){
+
+        Bank myBank = new Bank();
+
+        myBank.deposit(100);
+        myBank.withdrawal(50);
+
+        System.out.println("Your current balance is: " + myBank.getBalance());
+
+        myBank.listInteractions();
+
+    }
+}
