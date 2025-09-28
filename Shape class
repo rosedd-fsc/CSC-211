@@ -1,0 +1,62 @@
+public class Shape{
+
+    //Attributes
+    private int numOfSides;
+
+
+    //overloaded construtor
+    public Shape(int sides){
+        this.numOfSides = sides;
+    }
+
+    //setter()
+    public void setSides(int sides){
+        this.numOfSides = sides;
+    }
+
+    //getter()
+    public int getSides(){
+        return numOfSides;
+    }
+
+    //toString()
+    public String toString(){
+        return "The number of sides this shape is: " + getSides();
+    }
+}
+
+public class Circle extends Shape {
+    public Circle() {
+        super(0);
+    }
+
+
+    @Override
+    public String toString() {
+        return "The number of sides a Circle has is: " + getSides();
+    }
+}
+public class Rectangle extends Shape {
+    public Rectangle() {
+        super(4);
+    }
+
+    @Override
+    public String toString(){
+        return "The number of sides a Rectangle has is: " + getSides();
+    }
+}
+
+public class TestShape{
+        public static void main(String[] args){
+            Circle myCircle = new Circle();
+            Rectangle myRectangle = new Rectangle();
+            
+           System.out.println(myCircle.toString());
+           System.out.println(myRectangle.toString());
+
+        }
+    }
+
+
+
