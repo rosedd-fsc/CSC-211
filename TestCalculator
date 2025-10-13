@@ -1,0 +1,70 @@
+public class Calculator  {
+
+
+    public int add(int x, int y){
+        return x + y;
+    }
+
+    public int subtract(int x, int y){
+        return x - y;
+    }
+
+    public int multiply(int x, int y){
+        return x * y;
+    }
+
+    public int divide(int x, int y) {
+        if (y == 0) {
+            System.exit(0);
+        }
+        return x / y;
+    }
+
+    public int remainder(int x, int y){
+        return x % y;
+    }
+
+}
+
+
+
+import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+public class TestCalculatorMethods{
+    private final Calculator myTest = new Calculator();
+
+    @DisplayName("Tests the output of the addition method")
+    @Test
+    public void testAdd(){
+        assertEquals(4, myTest.add(2,2));
+    }
+
+    @DisplayName("Tests the output of the subtraction method")
+    @Test
+    public void testSubtract(){
+        assertEquals(15, myTest.subtract(20,5));
+    }
+
+    @DisplayName("Tests the output of the multiplication method")
+    @Test
+    public void testMultiplication(){
+        assertEquals(144, myTest.multiply(12,12));
+    }
+
+    @DisplayName("Tests the output of the division method")
+    @Test
+    public void testDivide(){
+        assertEquals(25, myTest.divide(100,4));
+    }
+
+
+    @DisplayName("Tests the output of the remainder method")
+    @Test
+    public void testRemainder(){
+        assertEquals(1, myTest.remainder(7,3));
+    }
+}
+
+
