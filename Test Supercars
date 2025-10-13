@@ -1,0 +1,71 @@
+import java.util.Scanner;
+public class SuperCars {
+
+    public int checkCar() {
+        Scanner keyb = new Scanner(System.in);
+        String carBrand;
+        System.out.println("Pick a fast car between (McLaren, Ferrari, Bugatti): ");
+        carBrand = keyb.next();
+        int mph = checkCar(carBrand);
+
+        System.out.println(carBrand + " max mph = " + mph + " mph");
+        return mph;
+
+    }
+
+    public int checkCar(String carBrand){
+
+        if (carBrand == null) {
+            System.out.println("Car cannot be zero!");
+            System.exit(0);
+        }
+
+        if (carBrand.equals("McLaren")) {
+            return 250;
+        } else if (carBrand.equals("Ferrari")) {
+            return 199;
+        } else if(carBrand.equals("Bugatti")) {
+            return 268;
+        } else{
+            return 0;
+        }
+
+    }
+    public static void main(String[] args) {
+        SuperCars myCar = new SuperCars();
+        myCar.checkCar();
+}
+
+}
+
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class TestSuperCars {
+    SuperCars myCar = new SuperCars();
+
+
+    @DisplayName("Test for the speed of a McLaren")
+    @Test
+    public void testMcLaren(){
+        SuperCars myCar = new SuperCars();
+        assertEquals(250,  myCar.checkCar("McLaren"));
+    }
+
+    @DisplayName("Test for the speed of a supercar")
+    @Test
+    public void testFerrari(){
+        SuperCars myCar = new SuperCars();
+        assertEquals(199,  myCar.checkCar("Ferrari"));
+    }
+
+    @DisplayName("Test for the speed of a Bugatti")
+    @Test
+    public void testBugatti(){
+        SuperCars myCar = new SuperCars();
+        assertEquals(268,  myCar.checkCar("Bugatti"));
+    }
+
+}
