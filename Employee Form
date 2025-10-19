@@ -1,0 +1,79 @@
+
+import java.awt.*;
+import java.awt.event.*;
+
+public class EmployeeInfoForm {
+    public static void main(String[] args) {
+        Frame frame = new Frame("Employee Information Form");
+
+        Label label1 = new Label("Enter Name:");
+        label1.setBounds(50, 50, 100, 30);
+
+        Label label2 = new Label("Enter Employee ID:");
+        label2.setBounds(50, 80, 105, 30);
+
+        Label label3 = new Label("Enter Department:");
+        label3.setBounds(50, 110, 100, 30);
+
+        TextField textField = new TextField();
+        textField.setBounds(200, 50, 80, 30);
+
+        TextField textField2 = new TextField();
+        textField2.setBounds(200, 80, 80, 30);
+
+        TextField textField3 = new TextField();
+        textField3.setBounds(200, 110, 80, 30);
+
+
+        Button button = new Button("Submit");
+        button.setBounds(150, 240, 80, 30);
+
+        Label outputLabel = new Label();
+        outputLabel.setBounds(50, 150, 300, 30);
+
+        Label outputLabel2 = new Label();
+        outputLabel2.setBounds(50, 180, 300, 30);
+
+
+        Label outputLabel3 = new Label();
+        outputLabel3.setBounds(50, 210, 300, 30);
+
+
+        button.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String empId = textField.getText();
+                String empName = textField2.getText();
+                String empDept = textField3.getText();
+                outputLabel.setText("Employee ID: " + empId); // original code
+                outputLabel2.setText("Employee name: " + empName);
+                outputLabel3.setText("Employee Department: " + empDept);
+            }
+
+
+        });
+
+        frame.add(label1);
+        frame.add(label2);
+        frame.add(label3);
+
+        frame.add(textField);
+        frame.add(textField2);
+        frame.add(textField3);
+
+        frame.add(button);
+        frame.add(outputLabel);
+        frame.add(outputLabel2);
+        frame.add(outputLabel3);
+
+        frame.setSize(400, 280);
+        frame.setLayout(null);
+        frame.setVisible(true);
+
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                frame.dispose();
+            }
+        });
+    }
+
+}//end
