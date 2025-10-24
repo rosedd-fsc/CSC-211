@@ -6,23 +6,23 @@ public class EmployeeInfoForm {
     public static void main(String[] args) {
         Frame frame = new Frame("Employee Information Form");
 
-        Label label1 = new Label("Enter Name:");
-        label1.setBounds(50, 50, 100, 30);
+        Label nameLabel= new Label("Enter Name:");
+        nameLabel.setBounds(50, 50, 100, 30);
 
-        Label label2 = new Label("Enter Employee ID:");
-        label2.setBounds(50, 80, 105, 30);
+        Label idLabel = new Label("Enter Employee ID:");
+        idLabel.setBounds(50, 80, 105, 30);
 
-        Label label3 = new Label("Enter Department:");
-        label3.setBounds(50, 110, 100, 30);
+        Label deptLabel = new Label("Enter Department:");
+        deptLabel.setBounds(50, 110, 100, 30);
 
-        TextField textField = new TextField();
-        textField.setBounds(200, 50, 80, 30);
+        TextField nameField = new TextField();
+        nameField.setBounds(200, 50, 80, 30);
 
-        TextField textField2 = new TextField();
-        textField2.setBounds(200, 80, 80, 30);
+        TextField idField = new TextField();
+        idField.setBounds(200, 80, 80, 30);
 
-        TextField textField3 = new TextField();
-        textField3.setBounds(200, 110, 80, 30);
+        TextField deptField = new TextField();
+        deptField.setBounds(200, 110, 80, 30);
 
 
         Button button = new Button("Submit");
@@ -41,24 +41,24 @@ public class EmployeeInfoForm {
 
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String empId = textField.getText();
-                String empName = textField2.getText();
-                String empDept = textField3.getText();
-                outputLabel.setText("Employee ID: " + empId); // original code
-                outputLabel2.setText("Employee name: " + empName);
+                String empName = nameField.getText();
+                String empId = idField.getText();
+                String empDept = deptField.getText();
+                outputLabel.setText("Employee name: " + empName);
+                outputLabel2.setText("Employee ID: " + empId);
                 outputLabel3.setText("Employee Department: " + empDept);
             }
 
 
         });
 
-        frame.add(label1);
-        frame.add(label2);
-        frame.add(label3);
+        frame.add(nameLabel);
+        frame.add(idLabel);
+        frame.add(deptLabel);
 
-        frame.add(textField);
-        frame.add(textField2);
-        frame.add(textField3);
+        frame.add(nameField);
+        frame.add(idField);
+        frame.add(deptField);
 
         frame.add(button);
         frame.add(outputLabel);
@@ -76,4 +76,4 @@ public class EmployeeInfoForm {
         });
     }
 
-}//end
+}
