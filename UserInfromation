@@ -1,0 +1,90 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class UserInfo {
+    public static void main(String[] args) {
+
+        JFrame frame = new JFrame("User Information");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+
+
+        JLabel nameLabel = new JLabel("Name:");
+
+
+        JLabel emailLabel = new JLabel("Email:");
+
+
+        JLabel passwordLabel = new JLabel("Password:");
+
+
+        JLabel confirmPassLabel = new JLabel("Confirm Password:");
+
+
+
+        JTextArea tf1 = new JTextArea("   ");
+
+
+        JTextArea tf2 = new JTextArea("   ");
+
+
+        JTextArea tf3 = new JTextArea("   ");
+
+
+        JTextArea tf4 = new JTextArea("   ");
+
+
+
+        JButton button1 = new JButton("Submit");
+
+        JButton button2 = new JButton("Clear");
+
+
+
+
+        frame.add(nameLabel);
+        frame.add(tf1);
+
+        frame.add(emailLabel);
+        frame.add(tf2);
+
+        frame.add(passwordLabel);
+        frame.add(tf3);
+
+        frame.add(confirmPassLabel);
+        frame.add(tf4);
+
+        frame.add(button1);
+        frame.add(button2);
+
+        button1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String name = tf1.getText();
+                String email = tf2.getText();
+                String password = tf3.getText();
+                String confirmPass = tf4.getText();
+
+                JOptionPane.showMessageDialog(frame, "Name: " + name + "\nEmail: " + email +
+                        "\nPassword: " + password + "\n Confirm Password: " + confirmPass);
+            }
+        });
+
+
+
+        button2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                tf1.setText("  ");
+                tf2.setText("  ");
+                tf3.setText("  ");
+                tf4.setText("  ");
+                                      }
+        });
+
+
+        frame.setVisible(true);
+}
+
+}
+
