@@ -1,0 +1,76 @@
+import javax.swing.*;
+
+class GradedActivity
+{
+    private int numQuestions;
+    private int numMissed;
+    private double minPassing;
+    private double pointsPerQuestion;
+    private double score;
+
+    public GradedActivity(int questions, int missed, double minPass)
+    {
+        numQuestions = questions;
+        numMissed = missed;
+        minPassing = minPass;
+
+        pointsPerQuestion = 100.0 / numQuestions;
+
+        score = 100.0 - (missed * pointsPerQuestion);
+    }
+
+    public double getPointsPerQuestion() {
+        return pointsPerQuestion;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public char getGrade()
+    {
+        char letterGrade;
+
+        if (score >= 90)
+            letterGrade = 'A';
+        else if (score >= 80)
+            letterGrade = 'B';
+        else if (score >= 70)
+            letterGrade = 'C';
+        else if (score >= 60)
+            letterGrade = 'D';
+        else
+            letterGrade = 'F';
+
+        return letterGrade;
+    }
+}
+
+public class PassFailExamDemo
+{
+    public static void main(String[] args)
+    {
+        String input;
+        int questions;
+        int missed;
+        double minPassing;
+
+        input = JOptionPane.showInputDialog("How many questions are on the exam?");
+        questions = Integer.parseInt(input);
+
+        input = JOptionPane.showInputDialog("How many questions did the student miss?");
+        missed = Integer.parseInt(input);
+
+        input = JOptionPane.showInputDialog("What is the minimum passing score?");
+        minPassing = Double.parseDouble(input);
+
+        GradedActivity exam = new GradedActivity(questions, missed, minPassing);
+
+        JOptionPane.showMessageDialog(null,
+                "Each question counts " + exam.getPointsPerQuestion() + " points.\n" +
+                        "The exam score is " + exam.getScore() + ".\n" +
+                        "The exam grade is " + exam.getGrade() + ".");
+
+        System.exit(0);
+    }
+}
