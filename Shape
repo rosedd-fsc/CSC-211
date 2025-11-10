@@ -1,0 +1,80 @@
+// Base class
+public class Shape {
+    protected String color;
+
+    public Shape(String color) {
+        this.color = color;
+    }
+    // polymorphism method
+    public double getArea() {
+        return 0.0;
+    }
+
+    public void displayInfo() {
+        System.out.println("The shape color is: " + color);
+    }
+}
+
+// Inheritance class 1
+class Triangle extends Shape {
+    private double height;
+    private double base;
+
+    public Triangle(String color, double height, double base) {
+        super(color);
+        this.height = height;
+        this.base = base;
+    }
+
+    @Override
+    public double getArea() {
+        return (height * base) / 2;
+    }
+}
+
+// Inheritance class 
+class Square extends Shape {
+    private double side;
+
+    public Square(String color, double side) {
+        super(color);
+        this.side = side;
+    }
+
+    @Override
+    public double getArea() {
+        return Math.pow(side, 2);
+    }
+}
+
+// Composition class
+class Picture {
+    private String pictureName;
+    private Shape shape; // has-a relationship
+
+    public Picture(String pictureName, Shape shape) {
+        this.pictureName = pictureName;
+        this.shape = shape;
+    }
+
+    public void displayPicture() {
+        System.out.println("The painting's name is: " + pictureName);
+        shape.displayInfo();
+        System.out.println("Area: " + shape.getArea());
+        System.out.println();
+    }
+}
+
+// Main class
+class TestShape {
+    public static void main(String[] args) {
+        Shape s1 = new Triangle("Red", 5.0, 12.0);
+        Shape s2 = new Square("Blue", 4.0);
+
+        Picture p1 = new Picture("Painting 1", s1);
+        Picture p2 = new Picture("Painting 2", s2);
+
+        p1.displayPicture();
+        p2.displayPicture();
+    }
+}
