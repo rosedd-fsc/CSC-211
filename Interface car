@@ -1,0 +1,48 @@
+interface Drivable{
+    int speed = 200;
+
+    void drive();
+
+    default void stop(){
+        System.out.println("The car has stopped..");
+
+    }
+}
+
+interface Maintain{
+    void startMaintenace();
+}
+
+class Car implements Drivable, Maintain {
+    private String brand;
+    private int mileage;
+
+    public Car(String brand, int mileage) {
+        this.brand = brand;
+        this.mileage = mileage;
+    }
+
+    @Override
+    public void drive() {
+        System.out.println(brand + " is driving at 100 mph.");
+    }
+
+    @Override
+    public void startMaintenace() {
+        System.out.println("Doing engine check for " + brand);
+    }
+}
+
+
+public class TestMain {
+    public static void main(String[] args){
+        Car vehicle = new Car("Honda", 50000);
+
+        vehicle.drive();
+        vehicle.startMaintenace();
+        vehicle.stop();
+
+        System.out.println();
+
+    }
+}
