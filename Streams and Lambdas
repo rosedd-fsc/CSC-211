@@ -1,0 +1,24 @@
+Lambda and Streams:
+They both help you write code in a concise way. 
+
+What is functional programming?:
+This puts its focus towards functions rather than objects and classes.
+The functions give you the same output each time you give the same input. 
+Functions can take other functions as input and produce them as outputs. 
+This helps with writing clean code and we use Lambdas and Streams to help enable functional style programming. 
+
+Lambdas:
+Functional interfaces: this contains only one abstract method. To help avoid any errors and allow only one abstract method within an interface we use the @FunctionalInterface annotation.
+Using lambdas: they help with writing an anonymous function(a function with no name) by providing implementation directly instead of making a new class to implement the functional interface. 
+Ex of lambda expressions: Greeting greet = () -> System.out.println(“Hello”);
+Using existing interfaces: java has interfaces that are already created that you can use at your disposal. 
+
+Streams API:
+This allows us to chain a group of elements together and it can be used alongside lambdas. 
+The streams API supports operations like filtering, mapping, and sorting elements in a collection.
+Streams are immutable, meaning you can't change the original data while processing it.
+There are two types of operations within Streams such as intermediate which is map, filter and sorted and they return a stream. 
+The second type is terminal operations like forEach that returns a final result. They must come last. 
+Create a stream from an array:  Stream<String> shoppingListStream = Stream.of(“a”, “b”);
+How to sort items alphabetical and use methods to print it out: shoppingListStream.sorted().forEach(item -> System.out.println(item));
+
