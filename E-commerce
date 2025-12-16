@@ -1,1 +1,509 @@
-wee
+// Base class for all products
+public abstract class Product {
+
+    // Fields for products
+    protected String name;
+    protected double price;
+    protected int id;
+
+    // Overloaded constructor
+    public Product(String name, double price, int id){
+
+        // Check if name is valid
+        if (name == null) {
+            System.out.println("Invalid name — defaulting to 'Unknown'");
+            this.name = "Unknown";
+        } else {
+            this.name = name;
+        }
+
+        // Validation: Price cannot be negative
+        if (price < 0) {
+            System.out.println("Price cannot be negative. Setting to $0.0");
+            this.price = 0.0;
+        } else {
+            this.price = price;
+        }
+
+        this.id = id;
+    }
+    // Getters
+    public String getName(){
+        return name;
+    }
+
+    public double getPrice(){
+        return price;
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    // Every product states its category
+    public abstract String getCategory();
+
+    // display product details
+    public void displayInfo() {
+        System.out.printf("ID: %d | %s | $%.2f%n", id, name, price);
+    }
+
+    // Sets the price
+    public void setPrice(double price){
+        this.price = price;
+    }
+
+ }
+
+
+
+ class Electronics extends Product {
+
+     private int warrantyYears;
+
+     // Overloaded constructor
+     public Electronics(String name, double price, int id, int warrantyYears) {
+         super(name, price, id);
+         this.warrantyYears = warrantyYears;
+     }
+
+     @Override
+     public String getCategory() {
+         return "Electronics";
+     }
+
+     @Override
+     public void displayInfo() {
+         System.out.printf(
+                 "Electronics - ID: %d | %s | $%.2f | Warranty: %d years%n",
+                 id, name, price, warrantyYears);
+
+
+     }
+ }
+
+class Clothing extends Product {
+
+    private String size;
+
+    public Clothing(String name, double price, int id, String size) {
+        super(name, price, id);
+        this.size = size;
+    }
+
+    @Override
+    public String getCategory() {
+        return "Clothing";
+    }
+
+    @Override
+    public void displayInfo() {
+        System.out.printf(
+                "Clothing - ID: %d | %s | $%.2f | Size: %s%n",
+                id, name, price, size);
+    }
+}
+//
+class Grocery extends Product{
+
+           private int expirationDays;
+
+           public Grocery(String name, double price, int id, int expirationDays) {
+               super(name, price, id);
+               this.expirationDays = expirationDays;
+           }
+
+           @Override
+           public String getCategory() {
+               return "Grocery";
+
+           }
+
+           @Override
+           public void displayInfo() {
+               System.out.printf(
+                       "Grocery - ID: %d | %s | $%.2f | Expires in: %d days%n",
+                       id, name, price, expirationDays);
+           }
+
+
+       }
+
+class TotalProduct extends Product{
+    public TotalProduct(double price) {
+        super("Total", price, -1);
+    }
+
+    @Override
+    public String getCategory() {
+        return "Total";
+    }
+}
+
+// Base class for all users
+public abstract class User {
+
+    // Fields for users
+    protected String username;
+    protected int id;
+
+    // Overloaded Constructor
+    public User(String username, int id){
+        if (username == null) {
+            System.out.println("Invalid username. Using 'Guest'.");
+            this.username = "Guest";
+        } else {
+            this.username = username;
+        }
+
+        this.id = id;
+    }
+
+    // Getters
+    public String getUsername(){
+        return username;
+    }
+
+    public int getId(){
+        return id;
+    }
+
+    // Every user states their role
+    public abstract String getRole();
+
+    // display a message to the user
+    public void welcomeUser() {
+        System.out.println("Welcome, " + username + " (" + getRole() + ")");
+    }
+}
+
+ class Customer extends User {
+
+     // Fields
+     private Product[] cart;  // array of carts
+     private int cartCount; // keep track of the amount of items in the cart
+
+
+     // Overloaded constructor
+     public Customer(String username, int id) {
+         super(username, id);
+
+         cart = new Product[10];
+         cartCount = 0;
+     }
+
+     @Override
+     public String getRole() {
+         return "Customer";
+     }
+
+     // Add product to cart
+     public void addToCart(Product product) {
+         if (cartCount >= cart.length) {
+             System.out.println("Cart is full! Cannot add more items.");
+             return;
+         }
+
+         cart[cartCount] = product;
+         cartCount++;
+
+         System.out.println(product.getName() + " added to cart.");
+     }
+
+     // Show the items in the cart
+     public void viewCart() {
+         System.out.println("\n--- Your Cart ---");
+
+         if (cartCount == 0) {
+             System.out.println("Cart is empty.");
+             return;
+         }
+
+         for (int i = 0; i < cartCount; i++) {
+             cart[i].displayInfo();
+         }
+     }
+
+
+     // Remove item from cart by the product ID
+     public void removeFromCart(int productId) {
+
+         int index = -1;
+
+         // Find product
+         for (int i = 0; i < cartCount; i++) {
+             if (cart[i].getId() == productId) {
+                 index = i;
+                 break;
+             }
+         }
+
+         if (index == -1) {
+             System.out.println("Item not found in cart.");
+             return;
+         }
+
+         // Shift items to the left
+         for (int j = index; j < cartCount - 1; j++) {
+             cart[j] = cart[j + 1];
+         }
+
+         cartCount--;
+         System.out.println("Removed item with ID: " + productId);
+     }
+
+     // Getter for the cart
+     public Product[] getCart() {
+         return cart;
+     }
+
+     public int getCartCount() {
+         return cartCount;
+     }
+
+     // Create an order from the cart
+     public Order checkout(int orderId) {
+
+         if (cartCount == 0) {
+             throw new IllegalStateException("Cannot checkout: Your cart is empty.");
+         }
+
+         return new Order(cart, cartCount, orderId);
+
+     }
+ }
+
+
+
+    class Admin extends User{
+
+        // Overloaded construtor
+        public Admin(String username, int id){
+            super(username, id);
+        }
+
+        @Override
+        public String getRole(){
+            return "Admin";
+        }
+
+        // Allows admin to view all the products
+        public void viewAllProducts(Product[] products) {
+            System.out.println("\n--- All Products (Admin View) ---");
+
+            for (Product p : products) {
+                if (p != null) {
+                    p.displayInfo();
+                }
+            }
+        }
+    }
+
+// A class for a customer's order
+public class Order {
+    // fields
+    private Product[] products; // The items in the order
+    private int orderId;
+    private double subtotal;
+    private double finalTotal;
+
+    // Overloaded constructor
+    public Order(Product[] cart, int itemCount, int orderId) {
+
+        // Handle empty order
+        if (itemCount == 0) {
+            throw new RuntimeException("Cannot create an order with no items!");
+        }
+
+        this.orderId = orderId;
+
+        // Copy only items that are in the cart
+        products = new Product[itemCount];
+        for (int i = 0; i < itemCount; i++) {
+            products[i] = cart[i];
+        }
+
+        // Calculate the subtotal
+        calculateSubtotal();
+        finalTotal = subtotal;
+
+    }
+
+
+    // Adds up the prices of all products
+    private void calculateSubtotal() {
+        subtotal = 0;
+
+        for (Product p : products) {
+            subtotal += p.getPrice();
+        }
+    }
+
+    // Applies a discount rule to each product
+    public void applyDiscount(PriceRule discountRule) {
+
+        for (Product p : products) {
+            double newPrice = discountRule.apply(p);
+            p.setPrice(newPrice);
+        }
+
+        // Update totals after discount
+        calculateSubtotal();
+        finalTotal = subtotal;
+    }
+
+    // Apply tax to the subtotal
+    public void applyTax(PriceRule taxRule) {
+        subtotal = taxRule.apply(new TotalProduct(subtotal));
+        finalTotal = subtotal;
+    }
+
+
+    // Apply shipping cost
+    public void applyShipping(PriceRule shippingRule) {
+        finalTotal = shippingRule.apply(new TotalProduct(finalTotal));
+    }
+
+    // Display the order details
+    public void printOrderSummary() {
+
+        System.out.println("\n======= ORDER SUMMARY =======");
+        System.out.println("Order ID: " + orderId);
+
+        // Show each product
+        for (Product p : products) {
+            p.displayInfo();
+        }
+
+        System.out.println("----------------------------");
+        System.out.printf("Subtotal: $%.2f%n", subtotal);
+        System.out.printf("Final Total: $%.2f%n", finalTotal);
+        System.out.println("============================\n");
+    }
+
+    // Getter
+    public double getFinalTotal() {
+        return finalTotal;
+    }
+}
+
+public interface Discountable {
+
+    double applyDiscount(Product product);
+}
+
+class CategoryDiscount implements Discountable{
+
+    @Override
+    public double applyDiscount(Product product) {
+
+        // 10% off Electronics
+        if (product.getCategory().equals("Electronics")) {
+            return product.getPrice() * 0.90;
+        }
+
+        // No discount for other categories
+        return product.getPrice();
+    }
+}
+
+
+public interface PriceRule {
+
+    // takes a product and returns new price
+    double apply(Product product);
+
+}
+
+class TaxRule implements PriceRule {
+    public double apply(Product product) {
+        return product.getPrice() * 1.07; // 7% tax
+    }
+}
+
+class ShippingRule implements PriceRule {
+    public double apply(Product product) {
+        return product.getPrice() + 5.99;
+    }
+}
+
+import java.util.Scanner;
+
+public class Main {
+
+    // Static array of products
+    static Product[] productList;
+
+    // static order ID counter
+
+    static int orderCounter = 1000;
+
+    public static void main(String[] args) {
+
+        Scanner keyb = new Scanner(System.in);
+
+        System.out.println("Welcome to the E-commerce Prototype Platform!");
+
+
+        // create products
+        Product p1 = new Electronics("Laptop", 999.99, 1, 2);
+        Product p2 = new Clothing("T-Shirt", 14.99, 2, "L");
+        Product p3 = new Grocery("Milk", 2.49, 3, 7);
+
+        // add products to product list
+        productList = new Product[] { p1, p2, p3 };
+
+        // create users
+        Customer customer = new Customer("Alice", 101);
+        Admin admin = new Admin("Admin", 999);
+
+        customer.welcomeUser();
+        admin.welcomeUser();
+
+        // admin views all products
+        admin.viewAllProducts(productList);
+
+        // customer adds items to cart
+        customer.addToCart(p1);
+        customer.addToCart(p2);
+        customer.addToCart(p3);
+
+        // view cart
+        customer.viewCart();
+
+        // customer checks out
+        Order order = customer.checkout(orderCounter++);
+
+        // apply category-based discount using interface
+        Discountable discountRule = new CategoryDiscount();
+        for (Product p : customer.getCart()) {
+            if (p != null) {
+                p.setPrice(discountRule.applyDiscount(p));
+            }
+        }
+
+        // apply tax and shipping using lambdas inside order
+        order.applyTax(new TaxRule());
+        order.applyShipping(new ShippingRule());
+
+        // print final order summary
+        order.printOrderSummary();
+
+    }
+}
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
