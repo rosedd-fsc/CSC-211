@@ -17,7 +17,7 @@ public abstract class Product {
             this.name = name;
         }
 
-        // Validation: Price cannot be negative
+        //  Price cannot be negative
         if (price < 0) {
             System.out.println("Price cannot be negative. Setting to $0.0");
             this.price = 0.0;
@@ -43,12 +43,12 @@ public abstract class Product {
     // Every product states its category
     public abstract String getCategory();
 
-    // display product details
+    // Display product details
     public void displayInfo() {
         System.out.printf("ID: %d | %s | $%.2f%n", id, name, price);
     }
 
-    // Sets the price
+    // Setter
     public void setPrice(double price){
         this.price = price;
     }
@@ -103,7 +103,7 @@ class Clothing extends Product {
                 id, name, price, size);
     }
 }
-//
+
 class Grocery extends Product{
 
            private int expirationDays;
@@ -171,7 +171,7 @@ public abstract class User {
     // Every user states their role
     public abstract String getRole();
 
-    // display a message to the user
+    // Display a message to the user
     public void welcomeUser() {
         System.out.println("Welcome, " + username + " (" + getRole() + ")");
     }
@@ -301,7 +301,7 @@ public abstract class User {
 
 // A class for a customer's order
 public class Order {
-    // fields
+    // Fields
     private Product[] products; // The items in the order
     private int orderId;
     private double subtotal;
@@ -410,7 +410,7 @@ class CategoryDiscount implements Discountable{
 
 public interface PriceRule {
 
-    // takes a product and returns new price
+    // Takes a product and returns new price
     double apply(Product product);
 
 }
@@ -445,36 +445,36 @@ public class Main {
         System.out.println("Welcome to the E-commerce Prototype Platform!");
 
 
-        // create products
+        // Create products
         Product p1 = new Electronics("Laptop", 999.99, 1, 2);
         Product p2 = new Clothing("T-Shirt", 14.99, 2, "L");
         Product p3 = new Grocery("Milk", 2.49, 3, 7);
 
-        // add products to product list
+        // Add products to product list
         productList = new Product[] { p1, p2, p3 };
 
-        // create users
+        // Create users
         Customer customer = new Customer("Alice", 101);
         Admin admin = new Admin("Admin", 999);
 
         customer.welcomeUser();
         admin.welcomeUser();
 
-        // admin views all products
+        // Admin views all products
         admin.viewAllProducts(productList);
 
-        // customer adds items to cart
+        // Customer adds items to cart
         customer.addToCart(p1);
         customer.addToCart(p2);
         customer.addToCart(p3);
 
-        // view cart
+        // View cart
         customer.viewCart();
 
-        // customer checks out
+        // Customer checks out
         Order order = customer.checkout(orderCounter++);
 
-        // apply category-based discount using interface
+        // Apply category based discount 
         Discountable discountRule = new CategoryDiscount();
         for (Product p : customer.getCart()) {
             if (p != null) {
@@ -482,11 +482,11 @@ public class Main {
             }
         }
 
-        // apply tax and shipping using lambdas inside order
+        // Apply tax and shipping 
         order.applyTax(new TaxRule());
         order.applyShipping(new ShippingRule());
 
-        // print final order summary
+        // Print final order summary
         order.printOrderSummary();
 
     }
